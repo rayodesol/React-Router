@@ -1,0 +1,14 @@
+{
+  // 스니펫 활용하기!!
+  "[javascript]": {
+    "editor.maxTokenizationLineLength": 2500, // 1줄에 최대 토큰 개수
+    "editor.formatOnSave": true, // 저장할 때 포맷팅 진행
+    "editor.defaultFormatter": "esbenp.prettier-vscode" // 포맷팅 툴. prettier 사용.
+  },
+  "[javascriptreact]": {
+    // 위와 동일
+    "editor.maxTokenizationLineLength": 2500,
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}
