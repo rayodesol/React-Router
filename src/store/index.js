@@ -3,10 +3,15 @@
 
 import { combineReducers } from 'redux';
 import todo from './modules/todo';
-import weightReducer from './modules/weight';
+import weight from './modules/weight';
+import mbti from './modules/mbti';
+import user from './modules/user';
 
+// 총 4개의 store 를 합쳐서 사용
 // 객체로 받은 reducer 들을 하나로 합쳐 빼주는.
 export default combineReducers({
   todo,
-  weightReducer,
+  weight,
+  mbti,
+  user,
 });

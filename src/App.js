@@ -1,45 +1,45 @@
-import { Link, Route, Routes } from 'react-router-dom';
-import './App.css';
-import Board from './components/Board';
-import BoardDetail from './components/BoardDetail';
-import Profile from './components/Profile';
-import Header from './components/Header';
-import NotFound from './components/NotFound';
-import Home from './components/Home';
-import TestRedux from './components/TestRedux';
-import ExRedux from './components/ExRedux';
-import ListContainer from './components/ListContainer';
+import React from 'react';
+// import styled from 'styled-components';
+// import Start from './pages/Start';
+import GlobalStyle from './components/GlobalStyle';
+import { useSelector } from 'react-redux';
+import { Route, Routes } from 'react-router-dom';
+import Main from './pages/Main';
+import Login from './pages/Login';
+// import Mbti from './pages/Mbti';
+// import Show from './pages/Show';
+
+// // 중앙정렬. 어느정도 모바일에서도 커버됨.
+// const Main = styled.main`
+//   box-sizing: border-box;
+//   width: 100%;
+//   max-width: 500px;
+//   padding: 0 35px;
+//   margin: auto;
+//   text-align: center;
+// `;
 
 function App() {
+  // 로그인/회원가입 때문에
+  const isLogin = useSelector((state) => state.user.isLogin);
+
+  // // 페이지 받아오기
+  // const page = useSelector((state) => state.mbti.page); // mbti 스토어 있는 page
+  // const survey = useSelector((state) => state.mbti.survey);
+
   return (
-    <div className="App">
-      <ListContainer />
-
-      <br />
-      <hr />
-      <TestRedux />
-      <hr />
-      <Header />
-
-      {/* 전반적인 룰을 감지. 주소 변경이 감지돼서 Route 한테 던져줌. */}
+    <>
+      <GlobalStyle />
+      {/* react app 키면 바로 보일 수 있는 기본 주소 "/". {} 안에 삼항연산자 사용 가능(JSX 문법) */}
+      {/* 로그인 되어 있는 여부에 따라 뜨는 컴포넌트 다름 */}
       <Routes>
-        {/* 라우팅 룰 정의. 주소에 따라 보여질 컴포넌트가 달라짐. */}
-        <Route path="/" element={<Home />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/test" element={<TestRedux />} />
-        <Route path="/board" element={<Board />} />
-        {/* /board/ 뒤에 오는 파라미터 값을 boardID 란 이름으로 받겠다는 것. 어떤 키 값으로 받을지 꼭 적어야! */}
-        <Route path="/board/:boardID" element={<BoardDetail />} />
-
-        {/* 실습 - 4/4 Redux */}
-        {/* <Route path="/exRedux" element={<ExRedux />} /> */}
-
-        {/* 주소 예외 처리 - 위 주소가 아닌 경우는 NotFound 가 뜨도록 */}
-        {/* 홈에서 NotFound 가 안 뜨려면 /home 이란 페이지를 만들던지, 위 Header 라우터 코드와 nav 를 각 컴포넌트에 넣던지 */}
-        {/* / 주소일 때 Home 컴포넌트로 */}
-        <Route path="*" element={<NotFound />} />
+        <Route path="/" element={isLogin ? <Main /> : <Login />} />
       </Routes>
-    </div>
+
+      {/* <Main>
+        {page === 0 ? <Start /> : page <= survey.length ? <Mbti /> : <Show />}
+      </Main> */}
+    </>
   );
 }
 

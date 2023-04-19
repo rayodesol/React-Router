@@ -17,7 +17,12 @@ const initState = {
       done: false,
     },
   ],
+  buyList: ['닌텐도', '자동차'],
+  todoListCount: 3,
 };
+
+let counts = initState.todoList.length;
+initState['nextID'] = counts; // initState.nextID 이렇게도 가능. initState['nextID'] 방법이 ... 때문에 더 좋음..?
 
 // 액션 타입 정의하기
 // todo 에 속한 action 들 / like 메뉴판
@@ -48,16 +53,41 @@ export default function todo(state = initState, action) {
   switch (action.type) {
     case CREATE:
       return {
-        ...state,
+        ...state, // 이걸 안 하면 todoList 외의 데이터는 지워짐! 꼭 써야.
+
         // concat ; 인자로 전달된 값을 todoList 마지막에 추가해주는 함수
-        todoList: state.todoList.concat({
-          id: action.payload.id,
-          text: action.payload.text,
-          done: false,
-        }),
+        // todoList: state.todoList.concat({
+        //   id: action.payload.id,
+        //   text: action.payload.text,
+        //   done: false,
+        // }),
+
+        // concat 안 쓰고 전개 연산자로 작성하는 법
+        todoList: [
+          ...state.todoList, // todoList 를 카피해서 뿌리는 것
+          {
+            id: action.payload.id,
+            text: action.payload.text,
+            done: false,
+          },
+        ],
+
+        nextID: action.payload.id + 1,
       };
     case DONE:
-      return console.log('DONE 호출');
+      return {
+        ...state,
+        todoList: state.todoList.map((el) => {
+          if (el.id === action.id) {
+            return {
+              ...el, // el의 나머지 애들은 그대로 유지
+              done: true,
+            };
+          } else {
+            return el;
+          }
+        }),
+      };
     default:
       return state;
   }

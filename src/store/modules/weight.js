@@ -1,10 +1,10 @@
 // 몸무게 관리하는 store
 
 // // 수업 코드
-const weight = 100;
+const weightState = 100;
 
 // 2번째 인자는 무조건 action. 문자열 형태로 받음.
-export default function weightReducer(state = weight, action) {
+export default function weight(state = weightState, action) {
   if (action.type === '증가') {
     state += 1;
     return state;
